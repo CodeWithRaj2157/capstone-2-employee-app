@@ -1,0 +1,67 @@
+services:
+  frontend:
+    build: ./frontend
+    container_name: capstone-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - capstone-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  backend:
+    build: ./backend
+    container_name: capstone-backend
+    environment:
+      - PORT=5000
+      - MONGO_URL=mongodb://mongo:27017/employeedb
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - capstone-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:5000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mongo:
+    image: mongo:7
+    container_name: capstone-mongo
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+    networks:
+      - capstone-net
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  capstone-net:
+    driver: bridge
+
+volumes:
+  mongo-data:

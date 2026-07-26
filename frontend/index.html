@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Registration</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Employee Registration</h1>
+    <p class="subtitle">Containerize a full-stack application</p>
+
+    <form id="employee-form">
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="e.g. Priya Sharma" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="e.g. priya@company.com" required />
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" placeholder="e.g. 9876543210" required />
+      </div>
+
+      <div class="field">
+        <label for="department">Department</label>
+        <select id="department" required>
+          <option value="" disabled selected>Select department</option>
+          <option>Engineering</option>
+          <option>DevOps</option>
+          <option>QA</option>
+          <option>HR</option>
+          <option>Sales</option>
+          <option>Finance</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="designation">Designation</label>
+        <input type="text" id="designation" placeholder="e.g. Software Engineer" required />
+      </div>
+
+      <div class="field">
+        <label for="dateOfJoining">Date of Joining</label>
+        <input type="date" id="dateOfJoining" required />
+      </div>
+
+      <button type="submit">Register Employee</button>
+      <p id="form-message"></p>
+    </form>
+  </div>
+
+  <div class="container">
+    <h2>Registered Employees</h2>
+    <table id="employee-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Designation</th>
+          <th>Joined</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="employee-list"></tbody>
+    </table>
+    <div id="status"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
